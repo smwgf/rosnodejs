@@ -54,7 +54,12 @@ cmakePaths.forEach((cmakePath) => {
 module.exports = {
   Find(messagePackage) {
     if (packagePaths.hasOwnProperty(messagePackage)) {
-      return require(packagePaths[messagePackage]);
+      try{
+        return require(packagePaths[messagePackage]);
+      }
+      catch(err){
+        return __non_webpack_require__(packagePaths[messagePackage]);
+      }
     }
     // else
     throw new Error(`Unable to find message package ${messagePackage} from CMAKE_PREFIX_PATH`);
